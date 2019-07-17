@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "新建",
+  "usingComponents": {
+    "m-input": "/components/m-input"
+  }
+}

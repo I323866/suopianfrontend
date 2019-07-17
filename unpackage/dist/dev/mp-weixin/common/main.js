@@ -1,0 +1,2 @@
+(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/main"],[],[["../../../../Users/azure/Desktop/workbench/Vue/weichatminiprogram/main.js","common/runtime","common/vendor"]]]);
+//# sourceMappingURL=../../.sourcemap/mp-weixin/common/main.js.map
