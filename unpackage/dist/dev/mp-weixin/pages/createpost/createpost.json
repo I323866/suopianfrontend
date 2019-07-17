@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "新建",
+  "navigationBarTitleText": "新建索片",
   "usingComponents": {
     "m-input": "/components/m-input"
   }

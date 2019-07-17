@@ -6,7 +6,8 @@
     "pages/pwd/pwd",
     "pages/user/user",
     "pages/new/new",
-    "pages/createpost/createpost"
+    "pages/createpost/createpost",
+    "pages/myinfo/myinfo"
   ],
   "subPackages": [],
   "window": {
@@ -26,6 +27,12 @@
         "selectedIconPath": "static/img/index-1.png"
       },
       {
+        "pagePath": "pages/createpost/createpost",
+        "text": "新建主题",
+        "iconPath": "static/img/new.png",
+        "selectedIconPath": "static/img/new.png"
+      },
+      {
         "pagePath": "pages/new/new",
         "text": "分类,",
         "iconPath": "static/img/tag-0.png",
@@ -36,15 +43,8 @@
         "text": "我的",
         "iconPath": "static/img/center-0.png",
         "selectedIconPath": "static/img/center-1.png"
-      },
-      {
-        "pagePath": "pages/createpost/createpost",
-        "text": "我的",
-        "iconPath": "static/img/center-0.png",
-        "selectedIconPath": "static/img/center-1.png"
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap15.json"
+  "usingComponents": {}
 }
