@@ -13,7 +13,7 @@
 	<view class="imgfile">图片上传</view>
 	<!--上传并显示图片  -->
 	<view style="width:90%;height:90px;margin:0 auto 30px;">
-	<view @tap="uploadimg" class="imgselect"><image src="static/img/center-0.png"></image></view>
+	<view @tap="uploadimg" class="imgselect"><image src="../../static/img/source.png"></image></view>
 	</view>
 	<!--获取上传成功的图片地址  -->
 	<m-input type='text' value="source" name="filename" style="display:none;"></m-input>
@@ -38,40 +38,11 @@ export default {
     source: ''
     }
   },
-  uploadimg() {
-    var that = this;
-    wx.chooseImage({  //从本地相册选择图片或使用相机拍照
-      count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-
-      success: function (res) {
-        //console.log(res)
-        //前台显示
-        that.setData({
-          source: res.tempFilePaths
-        })
-
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths
-        wx.uploadFile({
-          url: 'http://www.likeyunba.com/uploadimg/img.php',
-          filePath: tempFilePaths[0],
-          name: 'file',
-
-          success: function (res) {
-            //打印
-            console.log(res.data)
-          }
-        })
-      }
-    })
-  },
 
   methods: {
     testAPI() {
       uni.request({
-        url: this.$servertestUrl + "/api/packages/",
+        url: this.$serverUrl + "/api/packages/",
         success: res => {
           console.log("老婆是豬");
           if (res.data.code !== 0) {
@@ -104,12 +75,15 @@ export default {
         // })
 
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths
+        // var tempFilePaths = res.tempFilePaths
         wx.uploadFile({
-          url: 'http://www.likeyunba.com/uploadimg/img.php',
-          filePath: tempFilePaths[0],
+          url: 'http://localhost:3000/api/photos/',
+          filePath: that.source[0],
           name: 'file',
-
+		  formData:{
+			  user:"test",
+			  data: that.source[0]
+		  },
           success: function (res) {
             //打印
             console.log(res.data)
@@ -123,8 +97,9 @@ export default {
     var that = this;
     var formData = e.detail.value; //获取表单所有input的值  
     wx.request({
-      url: 'http://www.likeyunba.com/uploadimg/',
+      url: 'http://localhost:3000/api/feedbacks/',
       data: formData,
+	  method: "POST",
       header: { 'Content-Type': 'application/json' },
       success: function (res) {
         console.log(res.data)

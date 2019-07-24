@@ -60,7 +60,7 @@ export default {
   methods: {
     testAPI() {
       uni.request({
-        url: this.$servertestUrl + "/api/packages/",
+        url: this.$serverUrl + "/api/packages/",
         success: res => {
           console.log("老婆是豬");
           if (res.data.code !== 0) {

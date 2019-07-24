@@ -4,9 +4,9 @@
       <button v-if="!hasLogin" type="primary" class="primary" @tap="bindLogin">登录</button>
     </view>
     <view v-if="hasLogin" class="hr"></view>
-    <view v-if="hasLogin" class="item">
-      <view class="title" @click="navmyinfo">个人信息</view>
-      <view class="detail2">
+    <view v-if="hasLogin" class="item" v-on:click="navmyinfo" >
+      <view class="title" v-on:click="navmyinfo">个人信息</view>
+      <view class="detail2" >
         <text>></text>
       </view>
     </view>
@@ -58,6 +58,7 @@ export default {
         url: "../myinfo/myinfo"
       });
     },
+
     bindLogout() {
       this.logout();
       /**
@@ -68,6 +69,9 @@ export default {
           url: "../login/login"
         });
       }
+    },
+    kindToggle() {
+      console.log("aaa");
     }
   }
 };

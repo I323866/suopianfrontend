@@ -1,26 +1,34 @@
 <template>
-  <view class="content">
-    
-    <view v-if="hasLogin" class="hello">
-      <view class="title">您好 {{userName}}，您已成功登录。</view>
-      <view class="ul">
-        <view>这是 uni-app 带登录模板的示例App首页。</view>
-        <view>在 “我的” 中点击 “退出” 可以 “注销当前账户”</view>
+  <form>
+    <div class="field">
+      <label class="label">昵称:</label>
+    </div>
+    <label class="label">{{userName}}</label>
+    <view class="top">
+      <view class="top-text">性别:</view>
+      <!-- 下拉框 -->
+      <view class="top-selected" @click="bindShowMsg">
+        <text>{{grade_name}}</text>
+      </view>
+      <!-- 下拉需要显示的列表 -->
+      <view class="select_box" wx:if="{{select}}">
+        <view wx:for="{{grades}}" wx:key="unique">
+          <view class="select_one" @click="mySelect" data-name="{{item}}">{{item}}</view>
+        </view>
       </view>
     </view>
-    <view v-if="!hasLogin" class="hello">
-      <view class="title">您好 游客。</view>
-      <view class="ul">
-        <view>这是 uni-app 带登录模板的示例App首页。</view>
-        <view>在 “我的” 中点击 “登录” 可以 “登录您的账户”</view>
+    <div class="field">
+      <label class="label">个人介绍:</label>
+      <view class="section">
+        <textarea placeholder="请开始你的宣言" v-model="textarea" auto-focus/>
+        <view class="btn-area"></view>
       </view>
-      <button type="primary" class="primary" @tap="testAPI">testAPI</button>
-      <import src="../createpost/index.wxml"/>
-      <view is="uploadimg"/>
-    </view>
+    </div>
 
-  </view>
-	
+    <div class="control">
+      <button class="button is-primary" @click="submit">Save</button>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -28,6 +36,14 @@ import { mapState } from "vuex";
 
 export default {
   computed: mapState(["forcedLogin", "hasLogin", "userName"]),
+  data() {
+    return {
+      select: false,
+      grade_name: "--请选择--",
+      grades: ["男", "女", "未知"],
+      textarea:'test'
+    };
+  },
   onLoad() {
     if (!this.hasLogin) {
       uni.showModal({
@@ -44,11 +60,11 @@ export default {
              */
             if (this.forcedLogin) {
               uni.reLaunch({
-                url: "../login/login"
+                url: "../myinfo/myinfo"
               });
             } else {
               uni.navigateTo({
-                url: "../login/login"
+                url: "../myinfo/myinfo"
               });
             }
           }
@@ -56,107 +72,29 @@ export default {
       });
     }
   },
-
+  bindTextAreaBlur(e) {
+    console.log(e.detail.value);
+  },
   methods: {
-    testAPI() {
-      uni.request({
-        url: this.$servertestUrl + "/api/packages/",
-        success: res => {
-          console.log("老婆是豬");
-          if (res.data.code !== 0) {
-            return;
-          }
+    bindShowMsg() {
+      this.select = true;
+    },
+    /**
+     * 已选下拉框
+     */
+    mySelect(e) {
+      console.log(e);
+      var name = e.currentTarget.dataset.name;
+      this.grade_name = name;
+      this.select = false;
+    },
+    submit() {
 
-          this.data = this.data.concat(res.data.data);
-        },
-        fail: () => {
-          console.log("e");
-        }
-      });
-    }
+    },
+
   }
 };
 </script>
 
 <style>
-.hello {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
-.title {
-  color: #8f8f94;
-  margin-top: 50upx;
-}
-
-.ul {
-  font-size: 30upx;
-  color: #8f8f94;
-  margin-top: 50upx;
-}
-
-.ul > view {
-  line-height: 50upx;
-}
-.pic-title {
-  margin: 20rpx;
-  font-size: 30rpx;
-  font-weight: 500;
-  color: rgba(34, 34, 34, 1);
-}
-
-.pic-title .pic-title-content-right {
-  color: #999;
-}
-
-.pic-title .pic-title-content-right-count {
-  color: #fb0000;
-}
-
-.pic-content {
-  margin-left: 10rpx;
-  margin-right: 10rpx;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 60rpx;
-  margin-bottom: 60rpx;
-}
-
-.pic-content .camera {
-  width: 175rpx;
-  height: 175rpx;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 10rpx;
-  position: relative;
-  margin-top: 20rpx;
-}
-
-.pic-content .camera .img {
-  width: 74rpx;
-  height: 54rpx;
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -55%);
-}
-
-.pic-content .each-img {
-  overflow: visible;
-  margin-left: 10rpx;
-  width: 175rpx;
-  height: 175rpx;
-  margin-top: 20rpx;
-  position: relative;
-}
-
-.pic-content .each-img .delete-icon {
-  background-color: white;
-  border-radius: 50%;
-  position: absolute;
-  right: 5rpx;
-  top: 0rpx;
-  width: 38rpx;
-  height: 38rpx;
-}
 </style>
