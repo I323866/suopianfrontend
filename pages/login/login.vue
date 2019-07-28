@@ -1,5 +1,6 @@
 <template>
     <view class="content">
+
         <view class="input-group">
             <view class="input-row border">
                 <text class="title">账号：</text>
@@ -23,6 +24,7 @@
                 <image :src="provider.image" @tap="oauth(provider.value)"></image>
             </view>
         </view>
+        
     </view>
 </template>
 
@@ -174,6 +176,9 @@
         padding: 0 20upx;
     }
 
+    .page-bd {
+    padding: 15px;
+    }
     .oauth-row {
         display: flex;
         flex-direction: row;

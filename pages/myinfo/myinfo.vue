@@ -4,6 +4,8 @@
       <label class="label">昵称:</label>
     </div>
     <label class="label">{{userName}}</label>
+    <view  class="line"></view>
+    <view class="hr"></view>
     <view class="top">
       <view class="top-text">性别:</view>
       <!-- 下拉框 -->
@@ -17,6 +19,8 @@
         </view>
       </view>
     </view>
+    <view  class="line"></view>
+    <view class="hr"></view>
     <div class="field">
       <label class="label">个人介绍:</label>
       <view class="section">
@@ -24,7 +28,8 @@
         <view class="btn-area"></view>
       </view>
     </div>
-
+    <view  class="line"></view>
+    <view class="hr"></view>
     <div class="control">
       <button class="button is-primary" @click="submit">Save</button>
     </div>
@@ -97,4 +102,13 @@ export default {
 </script>
 
 <style>
+.hr {
+  width: 100%;
+  height: 15px;
+  background-color: #f4f5f6;
+}
+.line {
+  border: 1px solid #ccc;
+  opacity: 0.2;
+}
 </style>

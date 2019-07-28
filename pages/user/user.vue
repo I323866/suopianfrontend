@@ -5,7 +5,7 @@
     </view>
     <view v-if="hasLogin" class="hr"></view>
     <view v-if="hasLogin" class="item" v-on:click="navmyinfo" >
-      <view class="title" v-on:click="navmyinfo">个人信息</view>
+      <view class="title">个人信息</view>
       <view class="detail2" >
         <text>></text>
       </view>
@@ -28,14 +28,14 @@
     </view>
     <view v-if="hasLogin" class="line"></view>
     <view v-if="hasLogin" class="hr"></view>
-    <view v-if="hasLogin" class="item">
-      <view class="title">我的互寄</view>
+    <view v-if="hasLogin" class="item" v-on:click="navaddress">
+      <view class="title">地址管理</view>
       <view class="detail2">
         <text>></text>
       </view>
     </view>
     <view v-if="hasLogin" class="line"></view>
-    <button v-if="hasLogin" type="default" @tap="bindLogout">退出登录</button>
+    <button class="primary" v-if="hasLogin" type="default" @tap="bindLogout">退出登录</button>
   </view>
 </template>
 
@@ -58,7 +58,11 @@ export default {
         url: "../myinfo/myinfo"
       });
     },
-
+    navaddress() {
+      uni.navigateTo({
+        url: "../address/address"
+      });
+    },
     bindLogout() {
       this.logout();
       /**
@@ -100,16 +104,16 @@ export default {
   margin-top: 15rpx;
   justify-content: center;
 }
-
 .button {
   margin: 10px;
   font-size: 14px;
 }
-
+button {
+  margin-top: 15px;
+}
 .head image {
   border-radius: 50%;
 }
-
 .hr {
   width: 100%;
   height: 15px;
