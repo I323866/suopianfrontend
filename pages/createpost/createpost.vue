@@ -1,15 +1,14 @@
 <template>
 	<view>
-	<view class="title">爆料 / 建议</view>
-	<view class="int">有什么很多人不知道，但很值得分享的新鲜事吗？欢迎爆料！科技微讯有哪些地方需要改进呢？也欢迎提建议哦！</view>
-	
+	<view class="title">主题内容</view>
+		<!--相关链接  -->
+	<m-input name="xgurl" placeholder='标题' class="xgurl" placeholder-class="xgurl-phcolor"></m-input>
 	<form bindsubmit="formSubmit" bindreset="formReset">    
 	<!--输入区域  -->
-	<textarea name="userliuyan" placeholder="请输入内容或链接" placeholder-class="phcolor" class="textarea" maxlength="noteMaxLen" bindinput="bindWordLimit"></textarea> 
+	<textarea name="userliuyan" placeholder="请输入内容" placeholder-class="phcolor" class="textarea" maxlength="noteMaxLen" bindinput="bindWordLimit"></textarea> 
 	<!--字数统计  -->
 	<text class="wordLimit ff-hv"></text>
-	<!--相关链接  -->
-	<m-input type="url" name="xgurl" placeholder='如有相关链接请粘贴' class="xgurl" placeholder-class="xgurl-phcolor"></m-input>
+
 	<view class="imgfile">图片上传</view>
 	<!--上传并显示图片  -->
 	<view style="width:90%;height:90px;margin:0 auto 30px;">
@@ -63,7 +62,7 @@ export default {
   uploadimg() {
     var that = this;
     wx.chooseImage({  //从本地相册选择图片或使用相机拍照
-      count: 1, // 默认9
+      count: 9, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
 

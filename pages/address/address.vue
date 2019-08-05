@@ -1,135 +1,103 @@
 <template>
-  <div class="mvpue-picker">
-    <div>
-      <text class="input">收件人：</text>
-      <input class="input"/>
-    </div>
-    <view class="line"></view>
-
-    <div>
-      <text class="input">省市区：</text>
-      <input class="input" @click="showMulLinkageThreePicker">{{pickerText}}</input>
-    </div>
-    <view class="line"></view>
-
-    <div>
-      <text class="input">具体地址：</text>
-      <input class="input" type="text"></input>
-    </div>
-    <view class="line"></view>
-
-    <div>
-      <text class="input">邮编：</text>
-      <uni-number-box type ="number" @input="bindChange" maxlength="6" />
-    </div>
-    <view class="line"></view>
-    <div class="page-bd">
-      <button type="default" @click="showMulLinkageThreePicker">三级联动选择</button>
-    </div>
-    <mpvue-picker
-      ref="mpvuePicker"
-      :mode="mode"
-      :deepLength="deepLength"
-      :pickerValueDefault="pickerValueDefault"
-      :themeColor="themeColor"
-      @onChange="onChange"
-      @onConfirm="onConfirm"
-      @onCancel="onCancel"
-      :pickerValueArray="pickerValueArray"
-    ></mpvue-picker>
-  </div>
+  <view>
+    <view
+      class="tab"
+      :class="[{'active':index==tabIndex}]"
+      @tap="toggleTab(item,index)"
+      v-for="(item,index) in tabList"
+      :key="index"
+    >{{item.name}}</view>
+    <view class="uni-padding-wrap uni-common-mt">
+      <form @submit="formSubmit" @reset="formReset">
+        <w-picker mode="region" :defaultVal="[8,0,1]" @confirm="onConfirm" ref="region"></w-picker>
+        <label @click="toggleTab()" class="tab">{{resultInfo.result}}</label>
+        <view class="uni-form-item uni-column">
+          <view class="tab">地址：</view>
+          <input name="address"  class="tab" placeholder="请输入详细地址" />
+          <view class="tab">收件人：</view>
+          <input name="receiver" class="tab" placeholder="请输入收件人" />
+          <view class="tab">邮编：</view>
+          <input
+            class="tab"
+            type="number"
+            maxlength="6"
+            name="zipcode"
+            placeholder="请输入邮编"
+          />
+        </view>
+        <view class="uni-btn-v">
+          <button class="margin" formType="submit">确认</button>
+          <button class="margin" type="default" formType="reset">Reset</button>
+        </view>
+      </form>
+    </view>
+  </view>
 </template>
 
 <script>
-import uniNumberBox from "@/components/uni-number-box/uni-number-box.vue"
-import mpvuePicker from "@/components/mpvue-picker/mpvuePicker.vue";
-import addresslist from "./addresslist.json";
-// import mpvuePicker from 'mpvue-picker';
+import wPicker from "@/components/w-picker/w-picker.vue";
 export default {
   components: {
-    mpvuePicker,
-    uniNumberBox
+    wPicker
   },
   data() {
     return {
-      mode: "selector",
-      addresslist,
-      numberValue:1,
-      deepLength: 0, // 几级联动
-      pickerValueDefault: [], // 初始化值
-      pickerValueArray: [], // picker 数组值
-      pickerText: "",
-      themeColor: "" // 颜色主题
+      title: "Hello",
+      mode: "range",
+      defaultVal: [8, 0, 1],
+      tabList: [
+        {
+          mode: "region",
+          name: "省市区："
+        }
+      ],
+      tabIndex: 0,
+      resultInfo: {
+        result: "上海市市辖区徐汇区"
+      }
     };
   },
-
+  computed: {},
   methods: {
-    				bindChange(value){
-				console.log(value)
-			},
-    onChange(e) {
-      console.log(e);
-    },
-    onCancel(e) {
-      console.log(e);
-    },
-    handleInput(e) {
-      let a = e.key.replace(/[^\d]/g, "");
-      if (!a) {
-        e.preventDefault();
+    toggleTab(item, index) {
+      if (item) {
+        this.tabIndex = index;
+        this.mode = item.mode;
+        this.defaultVal = item.value;
+      } else {
+        this.tabIndex = 0;
+        this.mode = "region";
+        this.defaultVal = "上海市市辖区徐汇区";
       }
+      this.$refs[this.mode].show();
     },
-
-    // 三级联动选择
-    showMulLinkageThreePicker() {
-      this.pickerValueArray = this.addresslist;
-      this.mode = "multiLinkageSelector";
-      this.deepLength = 3;
-      this.pickerValueDefault = [1, 1, 1];
-      this.themeColor = "#8D0177";
-      this.$refs.mpvuePicker.show();
+    onConfirm(val) {
+      console.log(val);
+      this.resultInfo = val;
     },
-    showPickerView() {
-      this.$refs.mpvuePicker.show();
-    },
-    onConfirm(e) {
-      console.log(e);
-
-      this.pickerText = e.label;
+    formSubmit(val) {
+      console.log(val.detail.value);
     }
   }
 };
 </script>
 
 <style>
-.page-hd {
-  padding: 40px;
+.tab {
+  padding: 20upx 0;
+  font-size: 32upx;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
-.page-title {
-  font-size: 20px;
-  font-weight: 400px;
+
+.result {
+  margin-top: 200upx;
+  font-size: 32upx;
+  margin: 3px;
 }
-.page-bd {
-  padding: 15px;
-}
-.picker-text,
-.page__desc {
-  margin-top: 10px;
-}
-button {
-  margin-top: 15px;
-}
-input {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-.hr {
-  width: 100%;
-  height: 15px;
-  background-color: #f4f5f6;
-}
-.line {
-  border: 1px solid #ccc;
-  opacity: 0.2;
+.margin {
+  margin: 3px;
 }
 </style>

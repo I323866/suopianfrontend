@@ -13,9 +13,9 @@
         <text>{{grade_name}}</text>
       </view>
       <!-- 下拉需要显示的列表 -->
-      <view class="select_box" wx:if="{{select}}">
-        <view wx:for="{{grades}}" wx:key="unique">
-          <view class="select_one" @click="mySelect" data-name="{{item}}">{{item}}</view>
+      <view class="select_box" wx:if="select">
+        <view wx:for="grades" wx:key="unique">
+          <view class="select_one" @click="mySelect" data-name="item">{{item}}</view>
         </view>
       </view>
     </view>

@@ -45,6 +45,16 @@
             "style": {
                 "navigationBarTitleText": "地址管理"
             }
+        }, {
+            "path": "pages/address/addressold",
+            "style": {
+                "navigationBarTitleText": "地址管理"
+            }
+        }, {
+            "path": "pages/picker/picker",
+            "style": {
+                "navigationBarTitleText": "地址管理"
+            }
         }
 
 
